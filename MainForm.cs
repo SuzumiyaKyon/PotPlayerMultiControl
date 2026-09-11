@@ -29,8 +29,7 @@ public sealed partial class MainForm : Form
     private const uint SwpNoMove = 0x0002;
     private const uint SwpNoActivate = 0x0010;
     private const uint SwpShowWindow = 0x0040;
-    private static readonly nint HwndTopmost = -1;
-    private static readonly nint HwndNoTopmost = -2;
+    private static readonly nint HwndTop = 0;
     private static readonly Color ColorWindow = Color.FromArgb(246, 247, 249);
     private static readonly Color ColorSurface = Color.White;
     private static readonly Color ColorBorder = Color.FromArgb(218, 220, 224);
@@ -215,7 +214,7 @@ public sealed partial class MainForm : Form
         x += 18 + groupGap;
         PlaceSeparator(_sepSeek, x - groupGap / 2, buttonY, buttonSize);
 
-        Place(showAllButton, IconShowAll, "显示全部并置顶 (E)");
+        Place(showAllButton, IconShowAll, "显示全部 (E)");
         Place(minimizeAllButton, IconMinimize, "最小化全部 (R)");
         Place(syncLockButton, IconSyncOn, "同步锁：播放中自动微调对齐");
         x += groupGap - gap;
@@ -1105,13 +1104,12 @@ public sealed partial class MainForm : Form
     private bool TryShowWindow(nint hwnd)
     {
         _ = ShowWindow(hwnd, SwRestore);
-        _ = SetWindowPos(hwnd, HwndTopmost, 0, 0, 0, 0, SwpNoMove | SwpNoSize | SwpShowWindow | SwpNoActivate);
+        _ = SetWindowPos(hwnd, HwndTop, 0, 0, 0, 0, SwpNoMove | SwpNoSize | SwpShowWindow | SwpNoActivate);
         return IsWindowVisible(hwnd) && !IsIconic(hwnd);
     }
 
     private bool TryMinimizeWindow(nint hwnd)
     {
-        _ = SetWindowPos(hwnd, HwndNoTopmost, 0, 0, 0, 0, SwpNoMove | SwpNoSize | SwpNoActivate);
         _ = ShowWindowAsync(hwnd, SwMinimize);
         return IsIconic(hwnd);
     }

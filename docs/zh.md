@@ -81,7 +81,7 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 - 「对齐进度」或 `W`：各窗口对齐到主窗口进度（含帧偏移）。无窗口或仅一个窗口时会提示，不会崩溃。
 - 展开「窗口列表」：第一项为主窗口；选中其他窗口后设置「相对主窗口」帧偏移。约定：正数表示该窗口画面比主窗口更靠后（同一时刻进度更大）。例如 A 比主窗口 B 快 240 帧时，A 填 `+240`。
 - 同步锁图标：开关播放中自动微调。关闭后不再自动 seek。
-- 「显示全部」或 `E`：还原全部 PotPlayer 并置于最上层（置顶，不抢焦点）。
+- 「显示全部」或 `E`：还原并显示全部 PotPlayer 窗口（不置顶、不抢焦点）。
 - 「最小化全部」或 `R`：最小化全部 PotPlayer。
 - 「置顶控制窗口」：取消或重新置顶本程序。
 - 「刷新列表」：重新扫描当前窗口。
@@ -100,7 +100,7 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 - PotPlayer `WM_USER` `0x5004` / `0x5005` 读取并设置播放进度（自定义秒数快进/后退与对齐）。
 - 对齐时按假定帧率将目标时间量化到帧边界；回读误差超约 1 帧时短延迟重试。
 - 同步锁约 300ms 轮询；偏差达到 1 帧且经过冷却后才微调，避免频繁 seek。
-- `ShowWindow` / `SetWindowPos(HWND_TOPMOST)` 还原并置顶全部 PotPlayer；最小化时取消置顶。
+- `ShowWindow` / `SetWindowPos(HWND_TOP)` 还原并显示全部 PotPlayer。
 - 快捷键走窗体 `ProcessCmdKey`，不注册系统全局热键。
 
 ## 贡献与许可

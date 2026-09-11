@@ -83,7 +83,7 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 - Align or `W`: seeks every window to the primary timeline (including frame offsets). Zero or one window: status message, no crash.
 - Expand **窗口列表** (window list): the first item is primary; select others and set offset relative to primary. Positive means that window’s picture is *later* than the primary at the same clock (larger position). If A is 240 frames ahead of primary B, set A to `+240`.
 - Sync-lock icon: toggle automatic nudges during playback. Off means no automatic seeks.
-- Show all or `E`: restore all PotPlayer windows and raise them (topmost, without stealing focus).
+- Show all or `E`: restore and show all PotPlayer windows (not always-on-top, without stealing focus).
 - Minimize all or `R`: minimize all PotPlayer windows.
 - Toggle this app’s always-on-top.
 - Refresh the window list to rescan.
@@ -102,7 +102,7 @@ dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=
 - Position: PotPlayer `WM_USER` `0x5004` / `0x5005` (custom-length skip and align).
 - Align quantizes the target time to a frame boundary using the assumed FPS; retries shortly if read-back error exceeds about one frame.
 - Sync lock polls about every 300 ms; nudges only after ~1 frame of error and a cooldown, to avoid seek spam.
-- `ShowWindow` / `SetWindowPos(HWND_TOPMOST)` restore and raise all PotPlayer windows; minimize clears topmost.
+- `ShowWindow` / `SetWindowPos(HWND_TOP)` restore and show all PotPlayer windows.
 - Shortcuts use form `ProcessCmdKey`; no `RegisterHotKey` global hotkeys.
 
 ## Contributing and license
