@@ -80,8 +80,13 @@ jobs:
           generate_release_notes: true
           append_body: true
           body: |
-            Two Windows x64 builds:
+            兩個 Windows x64 版本，請擇一下載：
 
-            - `*-win-x64.zip` — framework-dependent (~0.1 MB). Requires the [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (not ASP.NET / the regular Runtime).
-            - `*-win-x64-self-contained.zip` — self-contained (~60 MB). No extra runtime install; just unzip and run.
+            - `*-win-x64.zip`：相依於框架（約 0.1 MB）。需先安裝 [.NET 8 桌面執行階段](https://dotnet.microsoft.com/download/dotnet/8.0)（Windows x64；請勿只安裝 ASP.NET 或一般 Runtime）。
+            - `*-win-x64-self-contained.zip`：獨立套件（約 60 MB）。內含執行階段，解壓縮即可執行。
+
+            Two Windows x64 builds; download either:
+
+            - `*-win-x64.zip` — framework-dependent (~0.1 MB). Requires the [.NET 8 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/8.0) (Windows x64; not ASP.NET or the regular Runtime).
+            - `*-win-x64-self-contained.zip` — self-contained (~60 MB). No extra runtime install; unzip and run.
           prerelease: ${{ steps.meta.outputs.prerelease == 'true' }}
